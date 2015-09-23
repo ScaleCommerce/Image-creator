@@ -14,7 +14,7 @@ Installation
 ------------
 * Run ```composer install```
 
-* change the root path in web/scale-image-creator.php to where your images are stored
+* change the root path in config.php to where your images are stored.
 
 * Change your .htaccess file or nginx config so if an image is not found the script is called.
 
@@ -26,4 +26,4 @@ You should take care of that by monitoring your server.
 
 NoPic is not returned if the master is not found.
 
-Image Qulity is not resprected yet.
+Image Qaulity is not resprected yet.

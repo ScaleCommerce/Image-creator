@@ -4,3 +4,4 @@ vendor/
 vm/
 config/
 .idea/
+config.php

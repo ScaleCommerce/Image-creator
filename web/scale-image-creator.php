@@ -13,7 +13,12 @@
 
 include('../vendor/autoload.php');
 
-$rootPath    = '/srv/scale.file/bilder';
+if(file_exists('../config.php')){
+    include('../config.php');
+}else{
+    exit('Your settings are missing!');
+}
+
 $requestPath = $_SERVER["REQUEST_URI"];
 $targetPath  = $rootPath . $requestPath;
 
