@@ -10,3 +10,4 @@ build_tar:
     - echo "\$noPicSrc = $rootPath . '$NO_PIC_LOCATION';" >> config.php
     - mv web move_me_later
     - tar -zcf ~/image-creator-$(git log -n 1 | grep commit | cut -d ' ' -f 2).tar.gz .
+    
