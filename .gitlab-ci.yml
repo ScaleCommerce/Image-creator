@@ -8,7 +8,6 @@ build_tar:
     - echo "<?php" >> config.php
     - echo "\$rootPath = '$ROOT_PATH';" >> config.php
     - echo "\$noPicSrc = $rootPath . '$NO_PIC_LOCATION';" >> config.php
-    - rm -rf .git
     - rm composer.*
     - rm config_example.php
     - rm readme.md
