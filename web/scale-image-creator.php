@@ -19,7 +19,7 @@ if(file_exists('../config.php')){
     exit('Your settings are missing!');
 }
 
-$requestPath = $_SERVER["REQUEST_URI"];
+$requestPath = str_replace('//','/', $_SERVER["REQUEST_URI"]);
 $targetPath  = $rootPath . $requestPath;
 
 // Check if file exists
@@ -35,8 +35,8 @@ if(!sendFile($targetPath)){
 
     $width     = $sizeArray[0];
     $height    = $sizeArray[1];
+    if (is_dir($masterPath) || !file_exists($masterPath)) {
 
-    if (!file_exists($masterPath)) {
         // Send the NoPic
         $masterPath = $noPicSrc;
         $targetPath = substr($targetPath, 0, strrpos($targetPath, '/')).'/nopic.jpg';
@@ -55,6 +55,16 @@ if(!sendFile($targetPath)){
  */
 function generateImage($masterPath, $targetPath, $width, $height)
 {
+    if((int) $width < 1)
+    {
+        $width = 150;
+    }
+
+    if((int) $height < 1)
+    {
+        $height = 150;
+    }
+
     make_path($targetPath, true);
     //ToDo Make configurable
     //Source http://harikt.com/blog/2012/12/17/resize-image-keeping-aspect-ratio-in-imagine/
