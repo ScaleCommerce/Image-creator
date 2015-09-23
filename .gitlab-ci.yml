@@ -15,6 +15,7 @@ build_tar:
     - echo "RewriteCond %{REQUEST_URI} (\/out\/pictures\/)" >> web/.htaccess
     - echo "RewriteCond %{REQUEST_FILENAME} !-f" >> web/.htaccess
     - echo "RewriteRule (\.jpe?g|\.gif|\.png)$ scale-image-creator.php" >> web/.htaccess
+    - echo "</IfModule>" >> web/.htaccess
     - rm composer.*
     - rm config_example.php
     - rm readme.md
