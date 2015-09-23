@@ -8,6 +8,10 @@ build_tar:
     - echo "<?php" >> config.php
     - echo "\$rootPath = '$ROOT_PATH';" >> config.php
     - echo "\$noPicSrc = $rootPath . '$NO_PIC_LOCATION';" >> config.php
-    - mv web move_me_later
+    - rm -rf .git
+    - rm composer.*
+    - rm config_example.php
+    - rm readme.md
+    - rm .gitignore
+    - rm .gitlab-ci.yml
     - tar -zcf ~/image-creator-$(git log -n 1 | grep commit | cut -d ' ' -f 2).tar.gz .
-    - echo "done!"
