@@ -1,0 +1,6 @@
+web/*
+!web/scale-image-creator.php
+vendor/
+vm/
+config/
+.idea/

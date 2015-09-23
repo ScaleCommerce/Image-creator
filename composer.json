@@ -1,0 +1,16 @@
+{
+  "name": "scale/image-creator",
+  "description": "Image creation service for the ScaleCommerce Platform",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Joscha Krug",
+      "email": "jk@scale.sc",
+      "homepage": "http://scale.sc"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "imagine/imagine": "~0.5.0"
+  }
+}
