@@ -10,3 +10,5 @@
  */
 
 $rootPath = 'PATH/TO/YOUR/IMAGES';
+
+$noPicSrc = $rootPath . 'RELATIVE/PATH/TO/NOPIC.JPG';

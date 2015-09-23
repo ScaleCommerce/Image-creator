@@ -33,37 +33,63 @@ if(!sendFile($targetPath)){
 
     $masterPath = $rootPath . implode('/', $pathArray);
 
-    if (file_exists($masterPath)) {
+    $width     = $sizeArray[0];
+    $height    = $sizeArray[1];
 
-        make_path($targetPath, true);
-        //ToDo Make configurable
-        $width     = $sizeArray[0];
-        $height    = $sizeArray[1];
-        //Source http://harikt.com/blog/2012/12/17/resize-image-keeping-aspect-ratio-in-imagine/
-        $imagine   = new Imagine\Gd\Imagine();
-        $size      = new Imagine\Image\Box($width, $height);
-        $mode      = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-        $resizeimg = $imagine->open($masterPath)->thumbnail($size, $mode);
-        $sizeR     = $resizeimg->getSize();
-        $widthR    = $sizeR->getWidth();
-        $heightR   = $sizeR->getHeight();
-
-        $preserve = $imagine->create($size);
-        $startX   = $startY = 0;
-        if ($widthR < $width) {
-            $startX = ($width - $widthR) / 2;
-        }
-        if ($heightR < $height) {
-            $startY = ($height - $heightR) / 2;
-        }
-        $preserve->paste($resizeimg, new Imagine\Image\Point($startX, $startY))->save($targetPath);
+    if (!file_exists($masterPath)) {
+        // Send the NoPic
+        $masterPath = $noPicSrc;
+        $targetPath = substr($targetPath, 0, strrpos($targetPath, '/')).'/nopic.jpg';
     }
+    generateImage($masterPath, $targetPath, $width, $height);
     sendFile($targetPath);
 }
 
-//Source: http://edmondscommerce.github.io/php/php-recursive-create-path-if-not-exists.html
-/*Create  Directory Tree if Not Exists
-If you are passing a path with a filename on the end, pass true as the second parameter to snip it off */
+/**
+ * Generation of the Images by the given parameters.
+ *
+ * @param $masterPath
+ * @param $targetPath
+ * @param $width
+ * @param $height
+ */
+function generateImage($masterPath, $targetPath, $width, $height)
+{
+    make_path($targetPath, true);
+    //ToDo Make configurable
+    //Source http://harikt.com/blog/2012/12/17/resize-image-keeping-aspect-ratio-in-imagine/
+    $imagine   = new Imagine\Gd\Imagine();
+    $size      = new Imagine\Image\Box($width, $height);
+    $mode      = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+    $resizeimg = $imagine->open($masterPath)->thumbnail($size, $mode);
+    $sizeR     = $resizeimg->getSize();
+    $widthR    = $sizeR->getWidth();
+    $heightR   = $sizeR->getHeight();
+
+    $preserve = $imagine->create($size);
+    $startX   = $startY = 0;
+    if ($widthR < $width) {
+        $startX = ($width - $widthR) / 2;
+    }
+    if ($heightR < $height) {
+        $startY = ($height - $heightR) / 2;
+    }
+    $preserve->paste($resizeimg, new Imagine\Image\Point($startX, $startY))->save($targetPath);
+}
+
+/**
+ * A function that builds a path an makes sure the structure exists.
+ *
+ * Source: http://edmondscommerce.github.io/php/php-recursive-create-path-if-not-exists.html
+ * Create  Directory Tree if Not Exists
+ * If you are passing a path with a filename on the end, pass true as the second parameter to snip it off
+ *
+ * @param            $pathname
+ * @param bool|false $is_filename
+ *
+ * @return bool
+ */
+//*/
 function make_path($pathname, $is_filename = false)
 {
     if ($is_filename) {

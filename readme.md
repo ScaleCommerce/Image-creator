@@ -24,6 +24,4 @@ Known issues
 At the moment, there is no protection for generating hundreds and thousands of files.
 You should take care of that by monitoring your server.
 
-NoPic is not returned if the master is not found.
-
 Image Qaulity is not resprected yet.
