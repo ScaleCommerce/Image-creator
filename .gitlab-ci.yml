@@ -8,6 +8,13 @@ build_tar:
     - echo "<?php" >> config.php
     - echo "\$rootPath = '$ROOT_PATH';" >> config.php
     - echo "\$noPicSrc = $rootPath . '$NO_PIC_LOCATION';" >> config.php
+    - echo "<IfModule mod_rewrite.c>" >> web/.htaccess
+    - echo "Options +FollowSymLinks" >> web/.htaccess
+    - echo "RewriteEngine On" >> web/.htaccess
+    - echo "RewriteBase /" >> web/.htaccess
+    - echo "RewriteCond %{REQUEST_URI} (\/out\/pictures\/)" >> web/.htaccess
+    - echo "RewriteCond %{REQUEST_FILENAME} !-f" >> web/.htaccess
+    - echo "RewriteRule (\.jpe?g|\.gif|\.png)$ scale-image-creator.php" >> web/.htaccess
     - rm composer.*
     - rm config_example.php
     - rm readme.md
