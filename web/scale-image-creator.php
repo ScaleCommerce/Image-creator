@@ -65,7 +65,10 @@ function generateImage($masterPath, $targetPath, $width, $height)
         $height = 150;
     }
 
-    make_path($targetPath, true);
+    if(!is_dir(dirname($targetPath))) {
+        mkdir(dirname($targetPath), 0755, true);
+    }
+
     //ToDo Make configurable
     //Source http://harikt.com/blog/2012/12/17/resize-image-keeping-aspect-ratio-in-imagine/
     $imagine   = new Imagine\Gd\Imagine();
@@ -85,48 +88,6 @@ function generateImage($masterPath, $targetPath, $width, $height)
         $startY = ($height - $heightR) / 2;
     }
     $preserve->paste($resizeimg, new Imagine\Image\Point($startX, $startY))->save($targetPath);
-}
-
-/**
- * A function that builds a path an makes sure the structure exists.
- *
- * Source: http://edmondscommerce.github.io/php/php-recursive-create-path-if-not-exists.html
- * Create  Directory Tree if Not Exists
- * If you are passing a path with a filename on the end, pass true as the second parameter to snip it off
- *
- * @param            $pathname
- * @param bool|false $is_filename
- *
- * @return bool
- */
-//*/
-function make_path($pathname, $is_filename = false)
-{
-    if ($is_filename) {
-        $pathname = substr($pathname, 0, strrpos($pathname, '/'));
-    }
-
-    // Check if directory already exists
-    if (is_dir($pathname) || empty($pathname)) {
-        return true;
-    }
-
-    // Ensure a file does not already exist with the same name
-    $pathname = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $pathname);
-
-    if (is_file($pathname)) {
-        trigger_error('mkdirr() File exists', E_USER_WARNING);
-        return false;
-    }
-    // Crawl up the directory tree
-    $next_pathname = substr($pathname, 0, strrpos($pathname, DIRECTORY_SEPARATOR));
-    if (make_path($next_pathname, $is_filename)) {
-        if (!file_exists($pathname)) {
-            return mkdir($pathname);
-        }
-    }
-
-    return false;
 }
 
 /**
