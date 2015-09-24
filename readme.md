@@ -25,3 +25,5 @@ At the moment, there is no protection for generating hundreds and thousands of f
 You should take care of that by monitoring your server.
 
 Image quality is not respected yet.
+
+If the master image exists and has the correct size, it should be copied and not created. We should fix this.
